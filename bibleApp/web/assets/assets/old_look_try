@@ -1,0 +1,186 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'style.dart';
+
+void main() => runApp(TheBibleApp());
+
+class TheBibleApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      builder: setRight2LeftLayout,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: primaryBlack,
+        buttonBarTheme:  ButtonBarThemeData(
+            buttonHeight: 50,
+            buttonPadding: EdgeInsets.all(0.0),
+            buttonMinWidth: 0,// InputDecoration(contentPadding: const EdgeInsets.all(0.0))
+        ),
+      ),
+      home: MyHomePage(title: 'ברוכים הבאים!'),
+    );
+  }
+
+  static Widget setRight2LeftLayout(context, child){
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Builder(
+        builder: (BuildContext context) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaleFactor: 1.0,
+            ),
+            child: child,
+          );
+        },
+      ),
+    );
+  }
+
+}
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(71, 71, 71,1),
+        titleSpacing: 0,
+        automaticallyImplyLeading: false,
+          title: ButtonBar(alignment: MainAxisAlignment.start,
+              children: <Widget>[
+                IconButton(
+                  iconSize: 40,
+                  padding: EdgeInsets.all(0),
+                  icon: Image.asset('assets/buttons/drawable-hdpi/search.png', width: 40, height: 40,fit: BoxFit.cover),
+                  tooltip: 'Closes application',
+                  //onPressed: () => print(Image.asset('assets/buttons/drawable-hdpi/search.png').height),
+                ),
+                IconButton(
+                  iconSize: 40,
+                  padding: EdgeInsets.all(0),
+                  icon: Image.asset('assets/buttons/drawable-hdpi/plus.png', width: 40, height: 40,fit: BoxFit.cover),
+                  tooltip: 'Closes application',
+                  //onPressed: () => print(Image.asset('assets/buttons/drawable-hdpi/plus.png').height),
+                ),
+                IconButton(
+                  iconSize: 40,
+                  padding: EdgeInsets.all(0),
+                  icon: Image.asset('assets/buttons/drawable-hdpi/minus.png', width: 40, height: 40,fit: BoxFit.cover),
+                  tooltip: 'Closes application',
+                  //onPressed: () => exit(0),
+                ),
+                Padding(
+                    padding: EdgeInsets.only(top: 10, bottom: 10, left: 5),
+                    child: Container(
+                      width: 60,
+                      height: 40,
+                      child: FlatButton(
+                          padding: EdgeInsets.all(0.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          color: Color.fromRGBO(51, 51, 51, 1),
+                          textColor: Color.fromRGBO(255, 255, 255, 1),
+                          onPressed: () {},
+                          child: Text('תנ"ך', softWrap: false,),
+                      ),
+                    )
+                ),
+                Padding(
+                    padding: EdgeInsets.only(top: 10, bottom: 10,left: 5),
+                    child: Container(
+                      width: 70,
+                      height: 40,
+                      child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          color: Color.fromRGBO(51, 51, 51, 1),
+                          textColor: Color.fromRGBO(255, 255, 255, 1),
+                          onPressed: () {},
+                          child: Text('מודרני', softWrap: false,)
+                      ),
+                    )
+                ),
+              ],
+            ),
+      ),
+      body:
+      Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: Column(
+          // Column is also a layout widget. It takes a list of children and
+          // arranges them vertically. By default, it sizes itself to fit its
+          // children horizontally, and tries to be as tall as its parent.
+          //
+          // Invoke "debug painting" (press "p" in the console, choose the
+          // "Toggle Debug Paint" action from the Flutter Inspector in Android
+          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+          // to see the wireframe for each widget.
+          //
+          // Column has various properties to control how it sizes itself and
+          // how it positions its children. Here we use mainAxisAlignment to
+          // center the children vertically; the main axis here is the vertical
+          // axis because Columns are vertical (the cross axis would be
+          // horizontal).
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.display1,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
